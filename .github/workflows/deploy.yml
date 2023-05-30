@@ -4,7 +4,7 @@ on: #["push"]
     paths: ["src/**"]
 
 env:
-  IMAGE: portfolio-api-service
+  IMAGE: portfolio-api
   VERSION: 0.1.${{github.run_number}}
 
 jobs:

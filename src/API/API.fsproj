@@ -1,6 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <ItemGroup>
-    <Content Include="Dockerfile" />
     <Compile Include="Entities\expense.fs" />
     <Compile Include="Logic\expenses.logic.fs" />
     <Compile Include="Endpoints\expenses.endpoint.fs" />
