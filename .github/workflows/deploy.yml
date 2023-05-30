@@ -1,12 +1,11 @@
 name: Deploy API service
 on: #["push"]
   push:
-    paths: ["src/API/**"]
+    paths: ["src/**"]
 
 env:
   IMAGE: portfolio-api-service
   VERSION: 0.1.${{github.run_number}}
-  #SRC_PATH: src/API
 
 jobs:
   create_image:
@@ -17,10 +16,6 @@ jobs:
         uses: actions/checkout@v3
       - name: Build Docker image
         run: |
-          #cd "$SRC_PATH"
-          #docker image build -t $IMAGE --build-arg VERSION=$VERSION .
-          #echo save image.tar
-          #docker save $IMAGE > ../../image.tar
           echo create image
           docker image build -t $IMAGE --build-arg VERSION=$VERSION -f ./devop/api.dockerfile ./src
           echo save image.tar
@@ -31,3 +26,31 @@ jobs:
           name: docker-artifact
           path: image.tar
           if-no-files-found: error
+
+  publish_ECR:
+    name: Publish image on AWS ECR
+    needs: create_image
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Get immage artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: docker-artifact
+      - name: Load Docker image
+        run: docker image load -i image.tar
+      - name: Publish on AWS ECR
+        env:
+          AWS_ACCESS_KEY_ID: ${{secrets.AWS_DEVOP_ACCESS_KEY}}
+          AWS_SECRET_ACCESS_KEY: ${{secrets.AWS_DEVOP_ACCESS_SECRET}}
+          AWS_REGION: eu-central-1
+          REPO: ${{secrets.AWS_ECR_URL}}
+        run: |
+          echo "### Push image on AWS ECR"
+          # login using environment variables: 
+          password=$(aws ecr get-login-password)
+          echo $password | docker login -u AWS $REPO --password-stdin
+          docker tag $IMAGE $REPO/$IMAGE:$VERSION
+          docker tag $IMAGE $REPO/$IMAGE:latest
+          docker push $REPO/$IMAGE:$VERSION          
+          docker push $REPO/$IMAGE:latest 
+          echo ---
