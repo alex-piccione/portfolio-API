@@ -15,10 +15,5 @@ COPY --from=builder /publish .
 
 CMD ["dotnet", ""]
 
-# test locally, from root foilder, with 
+# test locally, from root folder, with 
 # docker build --tag portfolio-api-local:0.1 --no-cache -f ./devop/api.dockerfile ./src
-# cp Directory.build.props test_app/
-# cp Directory.packages.props test_app/
-# cp Portfolio.API.sln test_app/
-# cp API/ test_app/
-# dotnet restore test_app/Portfolio.API.sln

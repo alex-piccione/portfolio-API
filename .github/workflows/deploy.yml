@@ -6,7 +6,7 @@ on: #["push"]
 env:
   IMAGE: portfolio-api-service
   VERSION: 0.1.${{github.run_number}}
-  SRC_PATH: src/API
+  #SRC_PATH: src/API
 
 jobs:
   create_image:
@@ -17,10 +17,14 @@ jobs:
         uses: actions/checkout@v3
       - name: Build Docker image
         run: |
-          cd "$SRC_PATH"
-          docker image build -t $IMAGE --build-arg VERSION=$VERSION .
+          #cd "$SRC_PATH"
+          #docker image build -t $IMAGE --build-arg VERSION=$VERSION .
+          #echo save image.tar
+          #docker save $IMAGE > ../../image.tar
+          echo create image
+          docker image build -t $IMAGE --build-arg VERSION=$VERSION -f ./devop/api.dockerfile ./src
           echo save image.tar
-          docker save $IMAGE > ../../image.tar
+          docker save $IMAGE > image.tar
       - name: Create artifact
         uses: actions/upload-artifact@v3
         with:
