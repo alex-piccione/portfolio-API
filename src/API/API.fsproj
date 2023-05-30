@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="Dockerfile" />
+    <Compile Include="Entities\expense.fs" />
+    <Compile Include="Logic\expenses.logic.fs" />
+    <Compile Include="Endpoints\expenses.endpoint.fs" />
+    <Compile Include="Endpoints\root.enpoint.fs" />
+    <Compile Include="Program.fs" />
+  </ItemGroup>
+</Project>

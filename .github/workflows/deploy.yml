@@ -1,0 +1,29 @@
+name: Deploy API service
+on: #["push"]
+  push:
+    paths: ["src/API/**"]
+
+env:
+  IMAGE: portfolio-api-service
+  VERSION: 0.1.${{github.run_number}}
+  SRC_PATH: src/API
+
+jobs:
+  create_image:
+    name: Create Docker image for API service
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build Docker image
+        run: |
+          cd "$SRC_PATH"
+          docker image build -t $IMAGE --build-arg VERSION=$VERSION .
+          echo save image.tar
+          docker save $IMAGE > ../../image.tar
+      - name: Create artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: docker-artifact
+          path: image.tar
+          if-no-files-found: error
