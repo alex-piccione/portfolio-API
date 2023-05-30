@@ -2,8 +2,6 @@
   <PropertyGroup>
   </PropertyGroup>
   <ItemGroup>
-  </ItemGroup>
-  <ItemGroup>
     <PackageVersion Include="FSharp.Core" Version="7.0.300" />
   </ItemGroup>
 </Project>
