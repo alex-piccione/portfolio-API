@@ -56,6 +56,8 @@ jobs:
           echo ---
 
   deploy_script:
+    # disabled until secrets are stored in GH
+    if: false 
     name: "Run the deploy script on server"    
     needs: publish_ECR
     runs-on: ubuntu-latest
