@@ -54,3 +54,18 @@ jobs:
           docker push $REPO/$IMAGE:$VERSION          
           docker push $REPO/$IMAGE:latest 
           echo ---
+
+  deploy_script:
+    name: "Run the deploy script on server"    
+    needs: publish_ECR
+    runs-on: ubuntu-latest
+    steps:
+      - name: run script
+        run: |
+          echo run deploy script
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SERVER_SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          ssh-keyscan -H ${{secrets.SERVER_IP}} > ~/.ssh/known_hosts          
+          chmod 600 ~/.ssh/id_rsa          
+          ssh -i ~/.ssh/id_rsa ${{secrets.SERVER_USER}}@${{secrets.SERVER_IP}} /devop/learning-docker/api-service/deploy.sh
+          rm ~/.ssh/id_rsa
