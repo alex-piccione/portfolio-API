@@ -12,19 +12,12 @@ let all (context:HttpContext) =
 let add exp =
     logic.expenses.addExpense exp
 
-let parseTo<'a> (context:HttpContext) =
-    //try 
-        System.Text.Json.JsonSerializer.Deserialize<'a> context.Request.Body
-   // with exc
-
 let create (context:HttpContext) =
-    let data = parseTo context
+    let data = deserialize context
     let exp = Expense.create data
     logic.expenses.addExpense exp
 
-    context.Response.StatusCode <- 201
-    context.Response.ContentType <- "application/json"
-    context.Response.WriteAsJsonAsync exp.id
+    createdId context (exp.id)
 
 let routes = [
     GET, "/expenses", all
