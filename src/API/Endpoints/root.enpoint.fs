@@ -1,4 +1,5 @@
 ﻿module endpoints.root
+open routing
 
 open Microsoft.AspNetCore.Http
 
@@ -7,11 +8,11 @@ open Microsoft.AspNetCore.Http
 //    let! todoItems = db.Todos.ToListAsync()
 //    return! context.Response.WriteAsJsonAsync(todoItems)
 
-let getRoot (context : HttpContext) : Async<unit> =
+let getRoot (context:HttpContext) : Async<unit> =
     context.Response.WriteAsJsonAsync("Hello world!") |> Async.AwaitTask
 
 
-let get (context : HttpContext) =
+let get (context:HttpContext) =
     context.Response.StatusCode <- 200
     context.Response.ContentType <- "text/plain"
     context.Response.WriteAsJsonAsync "Hello world!"
@@ -24,3 +25,8 @@ let greetAsync () : Async<unit> =
         do! Async.Sleep(1000)
         printfn "Hello World!"
     }
+
+
+let routes = [
+    GET, "/", get
+]

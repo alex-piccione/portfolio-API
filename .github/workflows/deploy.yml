@@ -51,14 +51,14 @@ jobs:
           echo $password | docker login -u AWS $REPO --password-stdin
           docker tag $IMAGE $REPO/$IMAGE:$VERSION
           docker tag $IMAGE $REPO/$IMAGE:latest
-          docker push $REPO/$IMAGE:$VERSION          
+          docker push $REPO/$IMAGE:$VERSION
           docker push $REPO/$IMAGE:latest 
           echo ---
 
   deploy_script:
     # disabled until secrets are stored in GH
     if: false 
-    name: "Run the deploy script on server"    
+    name: "Run the deploy script on server"
     needs: publish_ECR
     runs-on: ubuntu-latest
     steps:

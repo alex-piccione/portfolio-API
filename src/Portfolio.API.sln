@@ -1,4 +1,5 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.33530.505
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -7,8 +8,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1CB70C0F-DEFC-4A04-9A1C-3A50D5595D32}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		Directory.build.props = Directory.build.props
 		Directory.Packages.props = Directory.Packages.props
+		Directory.Build.props = Directory.Build.props
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Global

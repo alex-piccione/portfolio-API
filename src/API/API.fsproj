@@ -1,9 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <ItemGroup>
+    <Compile Include="Endpoints\helper.fs" />
+    <Compile Include="variables.fs" />
     <Compile Include="Entities\expense.fs" />
     <Compile Include="Logic\expenses.logic.fs" />
-    <Compile Include="Endpoints\expenses.endpoint.fs" />
+    <Compile Include="Endpoints\routing.fs" />
     <Compile Include="Endpoints\root.enpoint.fs" />
+    <Compile Include="Endpoints\info.endpoint.fs" />
+    <Compile Include="Endpoints\expenses.endpoint.fs" />
     <Compile Include="Program.fs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include=".dockerignore" />
   </ItemGroup>
 </Project>
